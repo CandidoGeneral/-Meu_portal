@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Escolar</title>
+<style>
+:root{--navy:#142b4a;--blue:#2463eb;--bg:#f4f7fb;--ink:#17243a;--muted:#718096;--line:#e4eaf2;--green:#16834a;--orange:#a56800;--red:#bd2636}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--ink)}header{background:#fff;border-bottom:1px solid var(--line);padding:16px 5%;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:12px;font-size:20px;font-weight:800;color:var(--navy)}.logo{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:var(--blue);color:#fff}.brand small{display:block;color:var(--muted);font-size:12px;font-weight:400;margin-top:4px}nav{display:flex;gap:8px;flex-wrap:wrap}button,.btn{border:0;border-radius:8px;padding:10px 14px;background:var(--blue);color:#fff;font-weight:700;cursor:pointer;text-decoration:none;font-size:14px}nav button{background:#eef3ff;color:var(--blue)}nav button.active{background:var(--blue);color:white}.container{max-width:1200px;margin:28px auto;padding:0 18px}.hero{padding:28px;border-radius:18px;color:#fff;background:linear-gradient(120deg,#142b4a,#2463eb);display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}.hero h1{margin:0 0 8px;font-size:clamp(24px,4vw,34px)}.hero p{margin:0;color:#dce7ff;line-height:1.5}.hero .btn{background:#fff;color:var(--navy)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}.stat,.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}.stat span{display:block;color:var(--muted);font-size:13px;margin-bottom:9px}.stat strong{font-size:28px;color:var(--navy)}.panel{margin:18px 0}.panel h2{margin:0 0 6px;font-size:19px}.sub{color:var(--muted);font-size:13px;margin:0 0 18px;line-height:1.5}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field label{display:block;font-size:13px;font-weight:700;margin:0 0 7px}.field input,.field select,.field textarea,.search input{width:100%;border:1px solid #d9e1ed;border-radius:8px;padding:11px;font:inherit;background:white;color:var(--ink)}.field input:focus,.field select:focus,.search input:focus{outline:2px solid #2463eb30;border-color:var(--blue)}.field{margin-bottom:14px}.form-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}.secondary{background:#edf1f7;color:#46556b}.danger{background:#d83b4b}.hidden{display:none!important}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:680px}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid #edf0f5;font-size:13px}th{font-size:11px;color:var(--muted);text-transform:uppercase;background:#fafbfd;letter-spacing:.4px}td{color:#4c5b70}.badge{display:inline-block;padding:5px 8px;border-radius:20px;font-size:11px;font-weight:800;background:#eef1f5;color:#667085}.good{background:#e1f7eb;color:var(--green)}.warn{background:#fff1d7;color:var(--orange)}.bad{background:#ffe4e6;color:var(--red)}.actions{display:flex;gap:6px}.actions button{padding:7px 9px;font-size:12px}.search{display:flex;gap:8px;margin-bottom:14px}.search input{max-width:360px}.empty{text-align:center;color:var(--muted);padding:24px}.notice{padding:12px 14px;border-radius:9px;background:#e1f7eb;color:var(--green);margin-bottom:16px}.inline-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}footer{text-align:center;padding:25px;color:var(--muted);font-size:12px}
+@media(max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.inline-fields{grid-template-columns:1fr}.hero{padding:22px}}@media(max-width:480px){header{padding:14px}.container{padding:0 12px;margin:18px auto}.stats{gap:8px}.stat{padding:14px}.stat strong{font-size:24px}.panel{padding:15px}.search{flex-direction:column}.search input{max-width:none}.hero h1{font-size:25px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="logo">PE</span><span>Portal Escolar<small>Gestão académica</small></span></div>
+  <nav>
+    <button class="active" data-tab="painel">Painel</button>
+    <button data-tab="alunos">Alunos</button>
+    <button data-tab="notas">Notas</button>
+    <button data-tab="cursos">Cursos e disciplinas</button>
+    <button data-tab="horarios">Horários</button>
+  </nav>
+</header>
+<main class="container">
+  <div id="notice" class="notice hidden"></div>
+  <section id="painel" class="tab">
+    <div class="hero"><div><h1>Gestão escolar simplificada</h1><p>Organize alunos, notas, cursos, disciplinas e horários num só lugar.</p></div><button class="btn" onclick="showTab('alunos');document.getElementById('nome').focus()">＋ Cadastrar aluno</button></div>
+    <div class="stats">
+      <div class="stat"><span>Alunos cadastrados</span><strong id="totalAlunos">0</strong></div>
+      <div class="stat"><span>Cursos</span><strong id="totalCursos">0</strong></div>
+      <div class="stat"><span>Disciplinas</span><strong id="totalDisciplinas">0</strong></div>
+      <div class="stat"><span>Registos de notas</span><strong id="totalNotas">0</strong></div>
+    </div>
+    <section class="panel"><h2>Alunos recentes</h2><p class="sub">Os registos são guardados neste navegador.</p><div id="recentes"></div></section>
+    <section class="panel"><h2>Resultados escolares</h2><p class="sub">Resumo das médias calculadas com as notas trimestrais disponíveis.</p><div id="resumoResultados"></div></section>
+  </section>
+
+  <section id="alunos" class="tab hidden">
+    <section class="panel"><h2 id="tituloAluno">Cadastrar aluno</h2><p class="sub">Preencha os dados do aluno. O número deve ser único.</p>
+      <form id="formAluno">
+        <input type="hidden" id="alunoId">
+        <div class="grid">
+          <div class="field"><label for="nome">Nome completo *</label><input id="nome" required maxlength="120" placeholder="Nome do aluno"></div>
+          <div class="field"><label for="numero">Número do aluno *</label><input id="numero" required maxlength="30" placeholder="Ex.: 001"></div>
+          <div class="field"><label for="email">E-mail</label><input id="email" type="email" placeholder="aluno@email.com"></div>
+          <div class="field"><label for="telefone">Telefone</label><input id="telefone" placeholder="Telefone de contacto"></div>
+          <div class="field"><label for="turma">Turma</label><input id="turma" placeholder="Ex.: 12.ª A"></div>
+          <div class="field"><label for="cursoAluno">Curso</label><select id="cursoAluno"><option value="">Selecione um curso</option></select></div>
+        </div>
+        <div class="form-actions"><button type="submit">Guardar aluno</button><button type="button" class="secondary" onclick="limparAluno()">Limpar</button></div>
+      </form>
+    </section>
+    <section class="panel"><h2>Lista de alunos</h2><p class="sub">Pode pesquisar, editar ou apagar registos.</p><div class="search"><input id="pesquisaAluno" placeholder="Pesquisar por nome, número ou turma" oninput="renderAlunos()"></div><div id="listaAlunos"></div></section>
+  </section>
+
+  <section id="notas" class="tab hidden">
+    <section class="panel"><h2>Registar notas</h2><p class="sub">Escolha o aluno e a disciplina e introduza as notas dos trimestres. A média e o resultado são calculados automaticamente.</p>
+      <form id="formNota">
+        <input type="hidden" id="notaId">
+        <div class="grid">
+          <div class="field"><label for="notaAluno">Aluno *</label><select id="notaAluno" required></select></div>
+          <div class="field"><label for="notaDisciplina">Disciplina *</label><select id="notaDisciplina" required></select></div>
+        </div>
+        <div class="inline-fields">
+          <div class="field"><label for="t1">1.º trimestre (0–20)</label><input id="t1" type="number" min="0" max="20" step="0.1" placeholder="Opcional"></div>
+          <div class="field"><label for="t2">2.º trimestre (0–20)</label><input id="t2" type="number" min="0" max="20" step="0.1" placeholder="Opcional"></div>
+          <div class="field"><label for="t3">3.º trimestre (0–20)</label><input id="t3" type="number" min="0" max="20" step="0.1" placeholder="Opcional"></div>
+        </div>
+        <div class="form-actions"><button type="submit">Guardar notas</button><button type="button" class="secondary" onclick="limparNota()">Limpar</button></div>
+      </form>
+    </section>
+    <section class="panel"><h2>Notas e médias</h2><div id="listaNotas"></div></section>
+  </section>
+
+  <section id="cursos" class="tab hidden">
+    <section class="panel"><h2>Adicionar curso</h2><p class="sub">Exemplos: Informática, Contabilidade, Enfermagem.</p><form id="formCurso"><div class="grid"><div class="field"><label for="nomeCurso">Nome do curso *</label><input id="nomeCurso" required placeholder="Nome do curso"></div><div class="field"><label for="descCurso">Descrição</label><input id="descCurso" placeholder="Descrição (opcional)"></div></div><button type="submit">Adicionar curso</button></form></section>
+    <section class="panel"><h2>Adicionar disciplina</h2><form id="formDisciplina"><div class="grid"><div class="field"><label for="nomeDisciplina">Nome da disciplina *</label><input id="nomeDisciplina" required placeholder="Ex.: Matemática"></div><div class="field"><label for="cursoDisciplina">Curso associado</label><select id="cursoDisciplina"><option value="">Sem curso associado</option></select></div></div><button type="submit">Adicionar disciplina</button></form></section>
+    <div class="grid"><section class="panel"><h2>Cursos registados</h2><div id="listaCursos"></div></section><section class="panel"><h2>Disciplinas registadas</h2><div id="listaDisciplinas"></div></section></div>
+  </section>
+
+  <section id="horarios" class="tab hidden">
+    <section class="panel"><h2>Adicionar horário</h2><p class="sub">Crie o horário de uma disciplina para uma turma.</p>
+      <form id="formHorario"><div class="grid">
+        <div class="field"><label for="horDisciplina">Disciplina *</label><select id="horDisciplina" required></select></div>
+        <div class="field"><label for="horTurma">Turma *</label><input id="horTurma" required placeholder="Ex.: 12.ª A"></div>
+        <div class="field"><label for="horDia">Dia *</label><select id="horDia" required><option>Segunda-feira</option><option>Terça-feira</option><option>Quarta-feira</option><option>Quinta-feira</option><option>Sexta-feira</option><option>Sábado</option></select></div>
+        <div class="field"><label for="horInicio">Hora de início *</label><input id="horInicio" type="time" required></div>
+        <div class="field"><label for="horFim">Hora de término *</label><input id="horFim" type="time" required></div>
+        <div class="field"><label for="horSala">Sala</label><input id="horSala" placeholder="Ex.: Sala 4"></div>
+      </div><button type="submit">Guardar horário</button></form>
+    </section>
+    <section class="panel"><h2>Horários registados</h2><div id="listaHorarios"></div></section>
+  </section>
+</main>
+<footer>Portal Escolar · Demonstração académica · Dados guardados localmente neste navegador</footer>
+<script>
+const STORAGE_KEY='portalEscolarDados_v1';
+let db={alunos:[],cursos:[],disciplinas:[],notas:[],horarios:[]};
+try{const saved=localStorage.getItem(STORAGE_KEY);if(saved)db={...db,...JSON.parse(saved)}}catch(e){}
+const $=id=>document.getElementById(id);
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(db));renderAll()}
+function esc(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function msg(text){$('notice').textContent=text;$('notice').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});setTimeout(()=>$('notice').classList.add('hidden'),3500)}
+function showTab(id){document.querySelectorAll('.tab').forEach(x=>x.classList.add('hidden'));$(id).classList.remove('hidden');document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));if(id==='alunos')renderAlunos();if(id==='notas')renderNotas();window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+function courseName(id){return db.cursos.find(c=>c.id===id)?.nome||'—'}
+function studentName(id){return db.alunos.find(a=>a.id===id)?.nome||'Aluno removido'}
+function subjectName(id){return db.disciplinas.find(d=>d.id===id)?.nome||'Disciplina removida'}
+function media(n){const values=[n.t1,n.t2,n.t3].filter(v=>v!==null&&v!==undefined&&v!=='').map(Number);return values.length?values.reduce((a,b)=>a+b,0)/values.length:null}
+function result(n){const m=media(n);if(m===null)return 'SEM NOTAS';if(m>=10)return 'APTO';if(m>=7)return 'RECURSO';return 'NÃO APTO'}
+function badge(text){const cls=text==='APTO'?'good':text==='RECURSO'?'warn':text==='NÃO APTO'?'bad':'';return `<span class="badge ${cls}">${text}</span>`}
+function fillSelect(id,items,placeholder,labelFn){const s=$(id),old=s.value;s.innerHTML=`<option value="">${esc(placeholder)}</option>`+items.map(x=>`<option value="${x.id}">${esc(labelFn(x))}</option>`).join('');if(items.some(x=>String(x.id)===old))s.value=old}
+function renderSelects(){fillSelect('cursoAluno',db.cursos,'Selecione um curso',c=>c.nome);fillSelect('cursoDisciplina',db.cursos,'Sem curso associado',c=>c.nome);fillSelect('notaAluno',db.alunos,'Selecione um aluno',a=>`${a.numero} — ${a.nome}`);fillSelect('notaDisciplina',db.disciplinas,'Selecione uma disciplina',d=>d.nome);fillSelect('horDisciplina',db.disciplinas,'Selecione uma disciplina',d=>d.nome)}
+function table(headers,rows,empty){if(!rows.length)return `<div class="empty">${empty}</div>`;return `<div class="table-wrap"><table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`}
+function renderAlunos(){const q=($('pesquisaAluno')?.value||'').toLowerCase();const arr=db.alunos.filter(a=>[a.nome,a.numero,a.turma,a.email].join(' ').toLowerCase().includes(q));const rows=arr.map(a=>`<tr><td>${esc(a.numero)}</td><td><strong>${esc(a.nome)}</strong></td><td>${esc(a.turma||'—')}</td><td>${esc(courseName(a.cursoId))}</td><td>${esc(a.telefone||a.email||'—')}</td><td><div class="actions"><button onclick="editAluno('${a.id}')">Editar</button><button class="danger" onclick="deleteAluno('${a.id}')">Apagar</button></div></td></tr>`);$('listaAlunos').innerHTML=table(['N.º','Nome','Turma','Curso','Contacto','Ações'],rows,'Nenhum aluno encontrado.');}
+function limparAluno(){$('formAluno').reset();$('alunoId').value='';$('tituloAluno').textContent='Cadastrar aluno'}
+function editAluno(id){const a=db.alunos.find(x=>x.id===id);if(!a)return;showTab('alunos');$('alunoId').value=a.id;$('nome').value=a.nome;$('numero').value=a.numero;$('email').value=a.email||'';$('telefone').value=a.telefone||'';$('turma').value=a.turma||'';$('cursoAluno').value=a.cursoId||'';$('tituloAluno').textContent='Editar aluno';window.scrollTo({top:0,behavior:'smooth'})}
+function deleteAluno(id){const a=db.alunos.find(x=>x.id===id);if(!a||!confirm(`Apagar o aluno ${a.nome}? As notas associadas também serão removidas.`))return;db.alunos=db.alunos.filter(x=>x.id!==id);db.notas=db.notas.filter(n=>n.alunoId!==id);save();msg('Aluno removido.')}
+$('formAluno').addEventListener('submit',e=>{e.preventDefault();const id=$('alunoId').value;const numero=$('numero').value.trim();if(db.alunos.some(a=>a.numero.toLowerCase()===numero.toLowerCase()&&a.id!==id)){msg('Já existe um aluno com esse número.');return}const item={id:id||crypto.randomUUID(),nome:$('nome').value.trim(),numero,email:$('email').value.trim(),telefone:$('telefone').value.trim(),turma:$('turma').value.trim(),cursoId:$('cursoAluno').value};if(id)db.alunos=db.alunos.map(a=>a.id===id?item:a);else db.alunos.push(item);save();limparAluno();msg(id?'Dados do aluno atualizados.':'Aluno cadastrado com sucesso.');showTab('alunos')});
+$('formCurso').addEventListener('submit',e=>{e.preventDefault();const nome=$('nomeCurso').value.trim();if(db.cursos.some(c=>c.nome.toLowerCase()===nome.toLowerCase())){msg('Esse curso já está registado.');return}db.cursos.push({id:crypto.randomUUID(),nome,descricao:$('descCurso').value.trim()});$('formCurso').reset();save();msg('Curso adicionado.')});
+$('formDisciplina').addEventListener('submit',e=>{e.preventDefault();const nome=$('nomeDisciplina').value.trim();if(db.disciplinas.some(d=>d.nome.toLowerCase()===nome.toLowerCase())){msg('Essa disciplina já está registada.');return}db.disciplinas.push({id:crypto.randomUUID(),nome,cursoId:$('cursoDisciplina').value});$('formDisciplina').reset();save();msg('Disciplina adicionada.')});
+function deleteCourse(id){if(!confirm('Apagar este curso?'))return;db.cursos=db.cursos.filter(c=>c.id!==id);db.alunos.forEach(a=>{if(a.cursoId===id)a.cursoId=''});db.disciplinas.forEach(d=>{if(d.cursoId===id)d.cursoId=''});save()}
+function deleteSubject(id){if(!confirm('Apagar esta disciplina? As notas e horários associados também serão removidos.'))return;db.disciplinas=db.disciplinas.filter(d=>d.id!==id);db.notas=db.notas.filter(n=>n.disciplinaId!==id);db.horarios=db.horarios.filter(h=>h.disciplinaId!==id);save()}
+function limparNota(){$('formNota').reset();$('notaId').value=''}
+$('formNota').addEventListener('submit',e=>{e.preventDefault();const id=$('notaId').value,alunoId=$('notaAluno').value,disciplinaId=$('notaDisciplina').value;const vals=['t1','t2','t3'].map(k=>$(k).value===''?null:Number($(k).value));if(vals.every(v=>v===null)){msg('Introduza pelo menos uma nota.');return}if(vals.some(v=>v!==null&&(v<0||v>20))){msg('As notas devem estar entre 0 e 20.');return}if(db.notas.some(n=>n.alunoId===alunoId&&n.disciplinaId===disciplinaId&&n.id!==id)){msg('Já existem notas para este aluno e esta disciplina. Edite o registo existente.');return}const item={id:id||crypto.randomUUID(),alunoId,disciplinaId,t1:vals[0],t2:vals[1],t3:vals[2]};if(id)db.notas=db.notas.map(n=>n.id===id?item:n);else db.notas.push(item);save();limparNota();msg('Notas guardadas com sucesso.')});
+function editNota(id){const n=db.notas.find(x=>x.id===id);if(!n)return;$('notaId').value=n.id;$('notaAluno').value=n.alunoId;$('notaDisciplina').value=n.disciplinaId;['t1','t2','t3'].forEach(k=>$(k).value=n[k]??'');window.scrollTo({top:0,behavior:'smooth'})}
+function deleteNota(id){if(confirm('Apagar este registo de notas?')){db.notas=db.notas.filter(n=>n.id!==id);save();msg('Registo de notas removido.')}}
+function renderNotas(){const rows=db.notas.map(n=>`<tr><td>${esc(studentName(n.alunoId))}</td><td>${esc(subjectName(n.disciplinaId))}</td><td>${n.t1??'—'}</td><td>${n.t2??'—'}</td><td>${n.t3??'—'}</td><td><strong>${media(n)===null?'—':media(n).toFixed(2)}</strong></td><td>${badge(result(n))}</td><td><div class="actions"><button onclick="editNota('${n.id}')">Editar</button><button class="danger" onclick="deleteNota('${n.id}')">Apagar</button></div></td></tr>`);$('listaNotas').innerHTML=table(['Aluno','Disciplina','1.º tri.','2.º tri.','3.º tri.','Média','Resultado','Ações'],rows,'Ainda não existem notas.')}
+$('formHorario').addEventListener('submit',e=>{e.preventDefault();if($('horFim').value<=$('horInicio').value){msg('A hora de término deve ser posterior à hora de início.');return}db.horarios.push({id:crypto.randomUUID(),disciplinaId:$('horDisciplina').value,turma:$('horTurma').value.trim(),dia:$('horDia').value,inicio:$('horInicio').value,fim:$('horFim').value,sala:$('horSala').value.trim()});$('formHorario').reset();save();msg('Horário guardado.')});
+function deleteHorario(id){if(confirm('Apagar este horário?')){db.horarios=db.horarios.filter(h=>h.id!==id);save()}}
+function renderAll(){renderSelects();$('totalAlunos').textContent=db.alunos.length;$('totalCursos').textContent=db.cursos.length;$('totalDisciplinas').textContent=db.disciplinas.length;$('totalNotas').textContent=db.notas.length;renderAlunos();renderNotas();$('recentes').innerHTML=table(['N.º','Nome','Turma','Curso'],db.alunos.slice(-5).reverse().map(a=>`<tr><td>${esc(a.numero)}</td><td>${esc(a.nome)}</td><td>${esc(a.turma||'—')}</td><td>${esc(courseName(a.cursoId))}</td></tr>`),'Ainda não existem alunos cadastrados.');const results=db.notas.map(n=>result(n));$('resumoResultados').innerHTML=results.length?`<p>${badge('APTO')} ${results.filter(x=>x==='APTO').length} &nbsp; ${badge('RECURSO')} ${results.filter(x=>x==='RECURSO').length} &nbsp; ${badge('NÃO APTO')} ${results.filter(x=>x==='NÃO APTO').length} &nbsp; ${badge('SEM NOTAS')} ${results.filter(x=>x==='SEM NOTAS').length}</p>`:'<div class="empty">Registe notas para ver os resultados.</div>';$('listaCursos').innerHTML=db.cursos.length?'<ul>'+db.cursos.map(c=>`<li style="padding:10px 0;border-bottom:1px solid #edf0f5"><strong>${esc(c.nome)}</strong><p class="sub">${esc(c.descricao||'Sem descrição')}</p><button class="danger" onclick="deleteCourse('${c.id}')">Apagar</button></li>`).join('')+'</ul>':'<div class="empty">Nenhum curso registado.</div>';$('listaDisciplinas').innerHTML=db.disciplinas.length?'<ul>'+db.disciplinas.map(d=>`<li style="padding:10px 0;border-bottom:1px solid #edf0f5"><strong>${esc(d.nome)}</strong><p class="sub">${esc(courseName(d.cursoId))}</p><button class="danger" onclick="deleteSubject('${d.id}')">Apagar</button></li>`).join('')+'</ul>':'<div class="empty">Nenhuma disciplina registada.</div>';const dayOrder=['Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];const sorted=[...db.horarios].sort((a,b)=>dayOrder.indexOf(a.dia)-dayOrder.indexOf(b.dia)||a.inicio.localeCompare(b.inicio));$('listaHorarios').innerHTML=table(['Turma','Dia','Hora','Disciplina','Sala','Ação'],sorted.map(h=>`<tr><td>${esc(h.turma)}</td><td>${esc(h.dia)}</td><td>${esc(h.inicio)}–${esc(h.fim)}</td><td>${esc(subjectName(h.disciplinaId))}</td><td>${esc(h.sala||'—')}</td><td><button class="danger" onclick="deleteHorario('${h.id}')">Apagar</button></td></tr>`),'Nenhum horário registado.')}
+renderAll();
+</script>
+</body>
+</html>
